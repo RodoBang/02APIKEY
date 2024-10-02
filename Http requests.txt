@@ -1,0 +1,146 @@
+LOGIN : Método POST : http://localhost:3000/auth/login
+> BODY : JSON : {
+    "username": "admin",
+    "password": "12345"
+}
+
+Debería devolver algo asi :
+ {
+	"code": 200,
+	"message": "Login successful",
+	"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNzI3ODkzMTEyLCJleHAiOjE3Mjc4OTY3MTJ9.pCcOG-QzZr0mvIqFpCxNF9lFq9Bh9D6ygdOjkBJqkAM"
+}
+
+
+//---------------------------------------------------------------------------------------------
+Obtener todos los proyectos: 
+Método Get : 
+http://localhost:3000/projects
+Encabezado (AUTH) utilizar Bearer Token y en la parte de token escribir el token que nos generó: 
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNzI3ODkzMTEyLCJleHAiOjE3Mjc4OTY3MTJ9.pCcOG-QzZr0mvIqFpCxNF9lFq9Bh9D6ygdOjkBJqkAM
+
+
+//-----------------------------------------------------------------------------------------------
+Crear un nuevo usuario:
+Método POST : http://localhost:3000/auth/create-user
+BODY > JSON : 
+
+{
+    "username": "rodo",
+    "password": "1234"
+}
+
+Debería de devolver algo asi: 
+{
+	"code": 201,
+	"message": "User created successfully",
+	"username": "rodo",
+	"apiKey": "4f2a4361-6027-437a-9afd-60110b589424"
+}
+
+TOMAR SOLAMENTE EL "apiKey"
+
+//------------------------------------------------------------------------------------------------------
+
+GetProject With ApiKey
+Método Get: http://localhost:3000/projects
+
+Body > JSON: 
+{
+    "apikey": "4f2a4361-6027-437a-9afd-60110b589424"
+}
+
+Debería retornar algo asi : 
+[
+	{
+		"id": "b9658e71-ebb7-4025-971e-64a16dad5837",
+		"name": "Proyecto A",
+		"description": "Este es el proyecto A",
+		"startDate": "2024-01-01",
+		"endDate": "2024-06-01",
+		"status": "pendiente",
+		"budget": 10000
+	},
+	{
+		"id": "7ad2ac46-9ba3-4efc-9299-0d7f7f3296e0",
+		"name": "Proyecto B",
+		"description": "Este es el proyecto B",
+		"startDate": "2024-03-01",
+		"endDate": "2024-09-01",
+		"status": "en progreso",
+		"budget": 25000
+	}
+]
+
+//-----------------------------------------------------------------------------------
+Create Project With ApiKey
+Método POST: http://localhost:3000/projects
+
+Body > JSON : 
+{
+    "apikey": "4f2a4361-6027-437a-9afd-60110b589424",
+    "name": "Proyecto C",
+    "description": "Este es el proyecto C",
+    "startDate": "2024-10-01",
+    "endDate": "2025-03-01",
+    "status": "pendiente",
+    "budget": 15000
+}
+
+Debería retornar algo asi : 
+{
+	"code": 201,
+	"message": "Project created successfully",
+	"project": {
+		"id": "ae5b2b1d-78e1-439e-842a-f977b615bfa6",
+		"name": "Proyecto C",
+		"description": "Este es el proyecto C",
+		"startDate": "2024-10-01",
+		"endDate": "2025-03-01",
+		"status": "pendiente",
+		"budget": 15000
+	}
+}
+
+
+//----------------------------------------------------------------------------------------------------
+
+UpdateProject ith ApiKey
+Método PUT : http://localhost:3000/projects/ae5b2b1d-78e1-439e-842a-f977b615bfa6
+
+BODY > JSON : 
+{
+    "apikey": "4f2a4361-6027-437a-9afd-60110b589424",
+    "name": "HOLAAAAAAA",
+    "description": "Este es el proyecto C actualizado"
+}
+Debería retornar algo asi : 
+{
+	"code": 200,
+	"message": "Project updated successfully",
+	"project": {
+		"id": "ae5b2b1d-78e1-439e-842a-f977b615bfa6",
+		"name": "HOLAAAAAAA",
+		"description": "Este es el proyecto C actualizado",
+		"startDate": "2024-10-01",
+		"endDate": "2025-03-01",
+		"status": "pendiente",
+		"budget": 15000
+	}
+}
+
+
+//-----------------------------------------------------------------
+
+DeleteProject with ApiKey
+
+Método Delete : http://localhost:3000/projects/ae5b2b1d-78e1-439e-842a-f977b615bfa6
+BODY > JSON : 
+{
+    "apikey": "4f2a4361-6027-437a-9afd-60110b589424"
+}
+Debería retornar algo asi : 
+{
+	"code": 200,
+	"message": "Project deleted successfully"
+}
