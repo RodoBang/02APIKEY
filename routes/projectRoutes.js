@@ -7,7 +7,7 @@ const router = express.Router();
 
 
 router.get('/',authenticateToken, projectController.getAllProjects);
-
-router.post('/',authenticateToken, projectController.createProject);
-
+router.post('/', authenticateToken, projectController.createProject);
+router.put('/:id', authenticateToken, projectController.updateProject);
+router.delete('/:id', authenticateToken, projectController.deleteProject); // Ruta DELETE protegida
 module.exports = router;

@@ -25,7 +25,7 @@ let projects = [
     return projects;
   }
 
-function createProject(data){
+  function createProject(data) {
     const newProject = {
         id: uuidv4(),
         name: data.name,
@@ -39,7 +39,23 @@ function createProject(data){
     return newProject;
 }
 
+function getProjectById(id) {
+    return projects.find(project => project.id === id);
+}
+
+function deleteProject(projectIndex) {
+  if (projectIndex !== -1) {
+      projects.splice(projectIndex, 1);  // Eliminar el proyecto del arreglo si el índice es válido
+  }
+}
+function getProjectIndexById(id) {
+  return projects.findIndex(project => project.id === id);  // Encuentra el índice correcto por ID
+}
+
 module.exports = {
-    getAllProjects,
-    createProject
+  getAllProjects,
+  getProjectById,
+  deleteProject,
+  createProject,
+  getProjectIndexById
 };
